@@ -86,6 +86,12 @@ const bookingMachine = createMachine({
 
             }
           )
+        },
+        DELETE: {
+          target: "passengers",
+          actions: assign({
+            passengers: ({ context, event }) => context.passengers.filter(passenger => passenger !== event.name)
+          })
         }
       },
     },
