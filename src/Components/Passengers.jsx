@@ -22,6 +22,10 @@ export const Passengers = ({ state, send }) => {
     send({ type: 'DELETE', name });
   }
 
+  const cleanPassengers = () => {
+    send({ type: 'EMPTY' });
+  }
+
   const { passengers } = state.context;
 
   return (
@@ -87,6 +91,13 @@ export const Passengers = ({ state, send }) => {
           type="submit"
         >
           Agregar Pasajero
+        </button>
+        <button
+          className='Passengers-add button-secondary'
+          type="button"
+          onClick={cleanPassengers}
+        >
+          Vaciar
         </button>
         <button
           className='Passenger-pay button'

@@ -92,6 +92,10 @@ const bookingMachine = createMachine({
           actions: assign({
             passengers: ({ context, event }) => context.passengers.filter(passenger => passenger !== event.name)
           })
+        },
+        EMPTY: {
+          target: "passengers",
+          actions: assign({ passengers: [] })
         }
       },
     },
