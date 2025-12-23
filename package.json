@@ -1,6 +1,6 @@
 {
   "homepage": "https://juandiegows.github.io/react-state-machines",
-  "name": "state-machine-react",
+  "name": "react-state-machines",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
