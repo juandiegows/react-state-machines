@@ -25,7 +25,8 @@ export const StepsLayout = ({ state, send }) => {
 
   return (
     <div className='StepsLayout'>
-      {Component ? <Component send={send} /> : null}
+  
+      {Component ? <Component send={send} state={state} /> : null}
     </div>
   );
 };

@@ -1,5 +1,35 @@
 import { createMachine, assign } from "xstate";
 
+const fillCountries = {
+  initial: "loading",
+  states: {
+    loading: {
+      invoke: {
+        id: 'getCountries',
+        src: () => fetchCountries,
+        onDone: {
+          target: 'success',
+          actions: assign({
+            countries: (context, event) => event.data,
+          })
+        },
+        onError: {
+          target: 'failure',
+          actions: assign({
+            error: 'Fallo el request',
+          })
+        }
+      }
+    },
+    success: {},
+    failure: {
+      on: {
+        RETRY: { target: "loading" },
+      },
+    },
+  },
+};
+
 const bookingMachine = createMachine({
   id: "buy plane tickets",
   initial: "initial",
@@ -9,10 +39,7 @@ const bookingMachine = createMachine({
   },
   states: {
     initial: {
-      entry: assign(() => ({
-        passengers: [],
-        selectedCountry: null,
-      })),
+      entry: 'CleanContexto',
       on: {
         START: {
           target: "search"
@@ -28,6 +55,7 @@ const bookingMachine = createMachine({
         },
         CANCEL: "initial",
       },
+      ...fillCountries,
     },
     tickets: {
       on: {
@@ -53,7 +81,10 @@ const bookingMachine = createMachine({
 },
   {
     actions: {
-
+      CleanContexto: assign(() => ({
+        passengers: [],
+        selectedCountry: null,
+      }))
     },
   }
 );
