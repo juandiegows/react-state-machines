@@ -76,7 +76,10 @@ const bookingMachine = createMachine({
     },
     passengers: {
       on: {
-        DONE: "tickets",
+        DONE: {
+          target: "tickets",
+          guard: ({ context }) => context.passengers.length > 0
+        },
         CANCEL: "initial",
         ADD: {
           target: "passengers",

@@ -103,6 +103,8 @@ export const Passengers = ({ state, send }) => {
           className='Passenger-pay button'
           type="button"
           onClick={goToTicket}
+          disabled={passengers.length === 0}
+          style={passengers.length === 0 ? { backgroundColor: 'gray', cursor: 'not-allowed' } : {}}
         >
           Ver mi ticket
         </button>
